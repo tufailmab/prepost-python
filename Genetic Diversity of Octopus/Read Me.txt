@@ -1,0 +1,6 @@
+In the context of Octopus (a multi-objective optimization framework):
+The code is taking the output of a particular Pareto front generation (from a run of Octopus), which is stored in a text file.
+Each line in the file represents a value of an objective (F1, F2, F3) or the generation distance (GD).
+It cleans the data, organizes every 4 values into a single solution (row), and builds a structured DataFrame for analysis.
+Then it computes min, max, and mean for each objective across the generation, which is useful for understanding the spread and quality of the Pareto solutions.
+Finally, it saves both the full data and the summary statistics to Excel, so you can include the stats in a paper or further analyze the full Pareto set.
