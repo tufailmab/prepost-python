@@ -24,7 +24,8 @@ values = [float(x) for x in clean_lines]
 data = [values[i:i+4] for i in range(0, len(values), 4)]
 
 # Create DataFrame
-df = pd.DataFrame(data, columns=["F1", "F2", "F3", "GD"])
+# Adjust these labels to reflect how each objective (F1…Fn) is mapped to the axes.
+df = pd.DataFrame(data, columns=["F1", "F2", "F3", "GD"]) # Columns should correspond to the objectives on each axis
 
 # Compute statistics
 stats = pd.DataFrame({
@@ -44,3 +45,4 @@ df.to_excel("Pareto Full data.xlsx", index=False)
 print("\nFiles saved:")
 print(" - Pareto Statistics.xlsx (for table in paper)")
 print(" - Pareto Full data.xlsx (all solutions)")
+
