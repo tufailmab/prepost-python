@@ -1,0 +1,5 @@
+1. Script Name: Run Displacement Vs Dissipation.py to quantify the cumulative work and energy loss.
+2. Data Source: Ensure the input file FD Curve.xlsx is in the same directory as the script.
+3. Important Notice: The current results are based on dummy data; you must use actual force-displacement data for legitimate research or engineering extraction.
+4. Energy Calculation: The script uses trapezoidal integration to calculate the area under the curve, representing the total energy absorbed.
+5. Output Generation: All .txt data and .png plots (formatted in Times New Roman) are saved inside the Required Outputs folder.
