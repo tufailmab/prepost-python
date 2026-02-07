@@ -1,11 +1,10 @@
+# Import all required libraries
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import os
 
-# -------------------------
 # Load FD curve
-# -------------------------
 file_name = "FD Curve.xlsx"
 df = pd.read_excel(file_name, header=0)
 displacement = df.iloc[:, 0].values
@@ -16,17 +15,13 @@ nonzero_idx = displacement != 0
 displacement_nonzero = displacement[nonzero_idx]
 force_nonzero = force[nonzero_idx]
 
-# -------------------------
 # Create output folder
-# -------------------------
 output_folder = "Required Outputs"
 os.makedirs(output_folder, exist_ok=True)
 
 plt.rcParams["font.family"] = "Times New Roman"
 
-# -------------------------
-# Task 1: Raw FD Curve
-# -------------------------
+# Raw FD Curve
 plt.figure(figsize=(8,5))
 plt.plot(displacement, force, marker='o', linestyle='-', color='k', label='FD Curve')
 plt.xlabel("Displacement (mm)", fontsize=12)
@@ -36,9 +31,7 @@ plt.grid(False)
 plt.savefig(os.path.join(output_folder, "FD_Curve.png"), dpi=300, bbox_inches='tight')
 plt.close()
 
-# -------------------------
-# Task 2: Tangent stiffness
-# -------------------------
+# Tangent stiffness
 delta_F = np.diff(force)
 delta_d = np.diff(displacement)
 tangent_stiffness = delta_F / delta_d
@@ -57,9 +50,8 @@ plt.grid(False)
 plt.savefig(os.path.join(output_folder, "Tangent_Stiffness.png"), dpi=300, bbox_inches='tight')
 plt.close()
 
-# -------------------------
-# Task 3: Secant stiffness
-# -------------------------
+
+# Secant stiffness
 secant_stiffness = force_nonzero / displacement_nonzero
 
 secant_df = pd.DataFrame({"Displacement_mm": displacement_nonzero,
@@ -75,9 +67,7 @@ plt.grid(False)
 plt.savefig(os.path.join(output_folder, "Secant_Stiffness.png"), dpi=300, bbox_inches='tight')
 plt.close()
 
-# -------------------------
-# Task 4: Energy absorbed
-# -------------------------
+# Energy absorbed
 energy_absorbed = np.zeros_like(force)
 for i in range(1,len(force)):
     energy_absorbed[i] = energy_absorbed[i-1] + 0.5*(force[i]+force[i-1])*(displacement[i]-displacement[i-1])
@@ -95,9 +85,7 @@ plt.grid(False)
 plt.savefig(os.path.join(output_folder, "Energy_Absorbed.png"), dpi=300, bbox_inches='tight')
 plt.close()
 
-# -------------------------
-# Task 5: Max force & displacement
-# -------------------------
+# Max force & displacement
 max_force_idx = np.argmax(force)
 max_force = force[max_force_idx]
 max_displacement = displacement[max_force_idx]
@@ -112,9 +100,7 @@ plt.grid(False)
 plt.savefig(os.path.join(output_folder, "FD_Curve_MaxPoint.png"), dpi=300, bbox_inches='tight')
 plt.close()
 
-# -------------------------
-# Task 6: Normalized force
-# -------------------------
+# Normalized force
 normalized_force = force / max_force
 plt.figure(figsize=(8,5))
 plt.plot(displacement, normalized_force, marker='o', linestyle='-', color='m', label='Normalized Force')
@@ -125,9 +111,7 @@ plt.grid(False)
 plt.savefig(os.path.join(output_folder, "Normalized_Force.png"), dpi=300, bbox_inches='tight')
 plt.close()
 
-# -------------------------
-# Task 7: Normalized displacement
-# -------------------------
+# Normalized displacement
 normalized_displacement = displacement / max_displacement
 plt.figure(figsize=(8,5))
 plt.plot(normalized_displacement, force, marker='o', linestyle='-', color='c', label='Normalized Displacement')
@@ -138,9 +122,7 @@ plt.grid(False)
 plt.savefig(os.path.join(output_folder, "Normalized_Displacement.png"), dpi=300, bbox_inches='tight')
 plt.close()
 
-# -------------------------
-# Task 8: Tangent vs Secant Stiffness
-# -------------------------
+# Tangent vs Secant Stiffness
 plt.figure(figsize=(8,5))
 plt.plot(displacement_mid, tangent_stiffness, marker='o', linestyle='-', color='b', label='Tangent Stiffness')
 plt.plot(displacement_nonzero, secant_stiffness, marker='o', linestyle='--', color='r', label='Secant Stiffness')
@@ -151,9 +133,7 @@ plt.grid(False)
 plt.savefig(os.path.join(output_folder, "Tangent_vs_Secant.png"), dpi=300, bbox_inches='tight')
 plt.close()
 
-# -------------------------
-# Task 9: Save all processed data into Excel
-# -------------------------
+# Save all processed data into Excel
 with pd.ExcelWriter(os.path.join(output_folder, "FD_Curve_Analysis.xlsx")) as writer:
     df.to_excel(writer, sheet_name="Raw_FD", index=False)
     tangent_df.to_excel(writer, sheet_name="Tangent_Stiffness", index=False)
@@ -161,3 +141,4 @@ with pd.ExcelWriter(os.path.join(output_folder, "FD_Curve_Analysis.xlsx")) as wr
     energy_df.to_excel(writer, sheet_name="Energy_Absorbed", index=False)
 
 print(f"All outputs saved in folder: '{output_folder}'")
+
