@@ -1,0 +1,1 @@
+With "FD Curve Analysis.py", you can get various plots with normalized results.
