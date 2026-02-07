@@ -1,3 +1,4 @@
+# Import all required libraries
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -8,27 +9,21 @@ df = pd.read_excel("FD Curve.xlsx", header=0)
 displacement = df.iloc[:, 0].values
 force = df.iloc[:, 1].values
 
-# -------------------------
 # Tangent Stiffness (Point-to-Point)
-# -------------------------
 delta_F = np.diff(force)
 delta_d = np.diff(displacement)
 tangent_stiffness = delta_F / delta_d
 # Midpoint displacement for plotting
 displacement_mid = (displacement[:-1] + displacement[1:]) / 2
 
-# -------------------------
 # Secant Stiffness (w.r.t Origin)
-# -------------------------
 # Avoid division by zero at origin
 nonzero_indices = displacement != 0
 displacement_nonzero = displacement[nonzero_indices]
 force_nonzero = force[nonzero_indices]
 secant_stiffness = force_nonzero / displacement_nonzero
 
-# -------------------------
 # Create output folder
-# -------------------------
 output_folder = "Required Outputs"
 os.makedirs(output_folder, exist_ok=True)
 
@@ -48,9 +43,7 @@ secant_df = pd.DataFrame({
 secant_file = os.path.join(output_folder, "Secant_Stiffness.txt")
 secant_df.to_csv(secant_file, index=False, sep='\t')
 
-# -------------------------
 # Plotting
-# -------------------------
 plt.rcParams["font.family"] = "Times New Roman"
 
 # Tangent stiffness plot
@@ -74,3 +67,4 @@ plt.savefig(os.path.join(output_folder, "Secant_Stiffness.png"), dpi=300, bbox_i
 plt.show()
 
 print(f"All outputs saved in folder: '{output_folder}'")
+
