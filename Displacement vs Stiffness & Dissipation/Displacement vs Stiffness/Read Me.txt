@@ -1,0 +1,5 @@
+1. Script Name: Run Displacement Vs Stiffness.py to process your mechanical data.
+2. Data Source: Ensure your input file is named FD Curve.xlsx and located in the same directory.
+3. Crucial Warning: The existing spreadsheet uses dummy data; you must replace it with your actual force-displacement data for real results extraction.
+4. Stiffness Analysis: The code generates both Tangent (incremental) and Secant (from origin) stiffness values automatically.
+5. Output Folder: Results, including .txt data files and Times New Roman plots, are saved in the Required Outputs folder.
