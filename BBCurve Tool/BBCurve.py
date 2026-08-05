@@ -33,6 +33,9 @@ GitHub: https://github.com/tufailmab
 # Verify results against your specific testing standards.
 # The developer assumes no liability for use of this script.
 
+# A Note:
+# I have kept j1.txt to j7.txt for running and testing, after completing libraries installing run it and it must work for you.
+
 import os, glob, numpy as np, pandas as pd
 import matplotlib.pyplot as plt
 _trapezoid = getattr(np, "trapezoid", None) or np.trapz
