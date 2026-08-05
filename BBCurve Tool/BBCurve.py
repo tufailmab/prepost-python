@@ -4,6 +4,35 @@ Developed by: Tufail Mabood
 GitHub: https://github.com/tufailmab
 """
 
+# Required Input File Format:
+# - Tab-delimited or whitespace-delimited .txt files
+# - First row: header (skipped automatically)
+# - Column 1: Displacement (mm)
+# - Column 2: Force (kN)
+
+# Usage:
+# 1. Place all .txt files in the same folder as this script
+# 2. Run: python BBCurve.py
+# 3. Results saved in 'results/' folder with organized subfolders
+
+# Assumptions (ASTM E2126):
+# - STIFFNESS_FRACTION = 0.40 (secant through 40% of peak force)
+# - DEGRADATION_FRACTION = 0.80 (ultimate = first drop to 80% of peak force)
+# - EEEP method for bilinear idealization (Equal Energy Elastic-Plastic)
+
+# Output Files:
+# - Backbone curve (PNG plot + CSV)
+# - Positive/Negative/Average branches (PNG plot + CSV)
+# - Bilinear idealization (PNG plot + CSV)
+# - Stiffness degradation (PNG plot + CSV)
+# - Energy dissipation per cycle (PNG plot + CSV)
+# - Cumulative energy dissipation (PNG plot + CSV)
+
+# Disclaimer:
+# This tool is for engineering analysis purposes only.
+# Verify results against your specific testing standards.
+# The developer assumes no liability for use of this script.
+
 import os, glob, numpy as np, pandas as pd
 import matplotlib.pyplot as plt
 _trapezoid = getattr(np, "trapezoid", None) or np.trapz
